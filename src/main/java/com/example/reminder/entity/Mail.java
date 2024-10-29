@@ -8,16 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Mail {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private long title;
-  private long sendTo;
-  private long date;
+  private String title;
+  private String sendTo;
+  private LocalDate date;
 }
