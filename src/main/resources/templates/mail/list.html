@@ -22,10 +22,9 @@
         <form th:action="@{/mail/update/{id} (id = ${mail.id})}" method="get">
           <button type="submit"> 수정 </button>
         </form>
-        <form th:action="@{/mail/delete/{id}(id=${mail.id})}" method="post"
-              onsubmit="return confirm('이 기념일을 삭제하시겠습니까?')">
+        <form th:action="@{/mail/delete/{id}(id=${mail.id})}" method="post">
           <input type="hidden" name="_method" value="delete"/>
-          <button type="submit">삭제</button>
+          <button type="submit" onclick="if (!confirm('이 기념일을 삭제하시겠습니까?')) return false;">삭제</button>
         </form>
       </td>
     </tr>
