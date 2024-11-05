@@ -6,7 +6,7 @@
 </head>
 <body>
   <h1>기념일 수정</h1>
-  <form th:action="@{/mail/update/{id}(id = ${mail.id})}" method="post" >
+  <form th:action="@{/mail/update/{id}(id=${mail.id})}" method="post">
     <input type="hidden" name="_method" value="put"/>
 
     <label for="title"> 제목 : </label>
