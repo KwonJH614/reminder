@@ -49,16 +49,15 @@ public class MailController {
     model.addAttribute("mail", mail);
     return "/mail/update";
   }
-
-  @PostMapping("/mail/update/{id}")
+  @PutMapping("/mail/update/{id}")
   public String updateMail(@PathVariable Long id, Mail mailDetails) {
     mailService.updateMail(id, mailDetails);
     return "redirect:/mail/list";
   }
 
   @DeleteMapping("/mail/delete/{id}")
-  public ResponseEntity<Void> deleteMail(@PathVariable Long id) {
+  public String deleteMail(@PathVariable Long id) {
     mailService.deleteMail(id);
-    return ResponseEntity.noContent().build();
+    return "redirect:/mail/list";
   }
 }
