@@ -21,7 +21,6 @@ public class MailController {
     return "home";
   }
 
-  // 생성
   @GetMapping("/mail/create")
   public String createMailPage(Model model) {
     model.addAttribute(model);
@@ -33,7 +32,6 @@ public class MailController {
     return "redirect:/mail/list";
   }
 
-  // 조회
   @GetMapping("/mail/list")
   public String getAllMails(Model model) {
     List<Mail> mails = mailService.getAllMails();
@@ -41,7 +39,6 @@ public class MailController {
     return "mail/list";
   }
 
-  // 업데이트
   @GetMapping("/mail/update/{id}")
   public String updateMailPage(@PathVariable Long id, Model model) {
     Mail mail = mailService.getMailById(id)
@@ -55,7 +52,6 @@ public class MailController {
     return "redirect:/mail/list";
   }
 
-  // 삭제
   @PostMapping
   public String deleteMail(@PathVariable Long id) {
     mailService.deleteMail(id);

@@ -6,11 +6,12 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,5 +84,23 @@ public class MailService {
     helper.setText(htmlContent, true);
 
     mailSender.send(message);
+  }
+
+  @Scheduled(cron = "0 0 0 * * ?")
+  public void sendScheduleMail() {
+    List<Mail> mails = getAllMails();
+    LocalDate today = LocalDate.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    for (Mail mail : mails) {
+      LocalDate mailDate = mail.getDate();
+      if (mailDate.isEqual(today)) {
+        try {
+          sendMail(mail);
+        } catch (MessagingException e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
 }
