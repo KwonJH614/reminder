@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reminder</title>
+</head>
+<body>
+  <h1>기념일 수정</h1>
+  <form th:action="@{/mail/update/{id}(id = ${mail.id})}" method="post" >
+    <label for="title"> 제목 : </label>
+    <input type="text" id="title" name="title" th:values="${mail.title}" required> <br>
+
+    <label for="sendTo"> 수신 메일 : </label>
+    <input type="email" id="sendTo" name="sendTo" th:values="${mail.sendTo}" required> <br>
+
+    <label for="date"> 날짜 : </label>
+    <input type="date" id="date" name="date" th:values="${mail.date}" required> <br>
+
+    <button type="submit">수정</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reminder</title>
+</head>
+<body>
+  <h1>기념일 리스트</h1>
+  <table>
+    <tr>
+      <th>제목</th>
+      <th>이메일</th>
+      <th>날짜</th>
+      <th>수정</th>
+      <th>삭제</th>
+    </tr>
+    <tr th:each="mail : ${mails}">
+      <td th:text="${mail.title}"></td>
+      <td th:text="${mail.sendTo}"></td>
+      <td th:text="${mail.date}"></td>
+      <td>
+        <form th:action="@{/mail/update/{id} (id = ${mail.id})}" method="get">
+          <button type="submit"> 수정 </button>
+        </form>
+        <button onclick="deleteMail(${mail.id})"> 삭제 </button>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

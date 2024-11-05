@@ -4,6 +4,8 @@ package com.example.reminder.controller;
 import com.example.reminder.entity.Mail;
 import com.example.reminder.service.MailService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,8 @@ public class MailController {
     model.addAttribute(model);
     return "mail/create";
   }
-  @PostMapping
+
+  @PostMapping("/mail/create")
   public String createMail(@ModelAttribute Mail mail) {
     mailService.createMail(mail);
     return "redirect:/mail/list";
@@ -46,15 +49,16 @@ public class MailController {
     model.addAttribute("mail", mail);
     return "/mail/update";
   }
+
   @PostMapping("/mail/update/{id}")
   public String updateMail(@PathVariable Long id, Mail mailDetails) {
     mailService.updateMail(id, mailDetails);
     return "redirect:/mail/list";
   }
 
-  @PostMapping
-  public String deleteMail(@PathVariable Long id) {
+  @DeleteMapping("/mail/delete/{id}")
+  public ResponseEntity<Void> deleteMail(@PathVariable Long id) {
     mailService.deleteMail(id);
-    return "redirect:/mail/list";
+    return ResponseEntity.noContent().build();
   }
 }

@@ -24,9 +24,6 @@ public class MailService {
   private final JavaMailSender mailSender;
 
   public Mail createMail(Mail mail) {
-    if (mail.getDate() == null) {
-      throw new IllegalArgumentException("날짜를 입력하세요");
-    }
     LocalDate mailDate = mail.getDate();
     if (mail.getDate().isBefore(LocalDate.now())) {
       throw new IllegalArgumentException("이미 지난 날짜입니다");
@@ -41,6 +38,7 @@ public class MailService {
   public Optional<Mail> getMailById(Long id) {
     return mailRepository.findById(id);
   }
+
 
   public Mail updateMail(Long id, Mail mailDetail) {
     Mail mail = mailRepository.findById(id)
@@ -61,6 +59,7 @@ public class MailService {
     mailRepository.deleteById(id);
   }
 
+
   public void sendMail(Mail mail) throws MessagingException {
     MimeMessage message = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -77,6 +76,7 @@ public class MailService {
             + "    <strong>기념일 날짜:</strong> " + mail.getDate() + "<br>"
             +  mail.getTitle() + " 을(를) 축하합니다! 특별한 날을 기념하세요."
             + "  </p>"
+            + "<p style='font-size: 13px; color: #333; text-align: center;'>기념일 알림 서비스</p>"
             + "</div>"
             + "</body>"
             + "</html>";
@@ -86,7 +86,7 @@ public class MailService {
     mailSender.send(message);
   }
 
-  @Scheduled(cron = "0 0 0 * * ?")
+  @Scheduled(cron = "0 * * * * ?")
   public void sendScheduleMail() {
     List<Mail> mails = getAllMails();
     LocalDate today = LocalDate.now();
