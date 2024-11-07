@@ -86,7 +86,7 @@ public class MailService {
     mailSender.send(message);
   }
 
-  @Scheduled(cron = "0 0 * * * ?")
+  @Scheduled(cron = "0 0 0 * * ?")
   public void sendScheduleMail() {
     List<Mail> mails = getAllMails();
     LocalDate today = LocalDate.now();
