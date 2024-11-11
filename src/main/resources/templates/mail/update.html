@@ -10,15 +10,16 @@
     <input type="hidden" name="_method" value="put"/>
 
     <label for="title"> 제목 : </label>
-    <input type="text" id="title" name="title" th:values="${mail.title}" required> <br>
+    <input type="text" id="title" name="title" th:values="${mail.title}" th:placeholder="${mail.title}" required> <br>
 
     <label for="sendTo"> 수신 메일 : </label>
-    <input type="email" id="sendTo" name="sendTo" th:values="${mail.sendTo}" required> <br>
+    <input type="email" id="sendTo" name="sendTo" th:values="${mail.sendTo}" th:placeholder="${mail.sendTo}" required> <br>
 
     <label for="date"> 날짜 : </label>
-    <input type="date" id="date" name="date" th:values="${mail.date}" required> <br>
+    <input type="date" id="date" name="date" th:values="${mail.date}" th:placeholder="${mail.date}" required> <br>
 
     <button type="submit">수정</button>
   </form>
+  <button onclick="location.href='/mail/list'"> 돌아가기 </button>
 </body>
 </html>
