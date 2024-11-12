@@ -2,24 +2,29 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Reminder</title>
+  <title>Reminder - 기념일 수정</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
+<div class="container">
   <h1>기념일 수정</h1>
   <form th:action="@{/mail/update/{id}(id=${mail.id})}" method="post">
     <input type="hidden" name="_method" value="put"/>
 
-    <label for="title"> 제목 : </label>
-    <input type="text" id="title" name="title" th:values="${mail.title}" th:placeholder="${mail.title}" required> <br>
+    <label for="title">제목:</label>
+    <input type="text" id="title" name="title" th:value="${mail.title}" required> <br>
 
-    <label for="sendTo"> 수신 메일 : </label>
-    <input type="email" id="sendTo" name="sendTo" th:values="${mail.sendTo}" th:placeholder="${mail.sendTo}" required> <br>
+    <label for="sendTo">수신 메일:</label>
+    <input type="email" id="sendTo" name="sendTo" th:value="${mail.sendTo}" required> <br>
 
-    <label for="date"> 날짜 : </label>
-    <input type="date" id="date" name="date" th:values="${mail.date}" th:placeholder="${mail.date}" required> <br>
+    <label for="date">날짜:</label>
+    <input type="date" id="date" name="date" th:value="${mail.date}" required> <br>
 
     <button type="submit">수정</button>
   </form>
-  <button onclick="location.href='/mail/list'"> 돌아가기 </button>
+  <br>
+  <button onclick="location.href='/mail/list'">리스트 보기</button>
+</div>
 </body>
 </html>

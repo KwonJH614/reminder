@@ -39,7 +39,6 @@ public class MailService {
     return mailRepository.findById(id);
   }
 
-
   public Mail updateMail(Long id, Mail mailDetail) {
     Mail mail = mailRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다 : " + id));
@@ -86,8 +85,8 @@ public class MailService {
     mailSender.send(message);
   }
 
-  @Scheduled(cron = "0 0 0 * * ?")
-  public void sendScheduleMail() {
+  @Scheduled(cron = "0 * * * * ?")
+  public void scheduleMail() {
     List<Mail> mails = getAllMails();
     LocalDate today = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -100,6 +99,10 @@ public class MailService {
         } catch (MessagingException e) {
           e.printStackTrace();
         }
+      }
+
+      if (mailDate.isBefore(today)) {
+        deleteMail(mail.getId());
       }
     }
   }

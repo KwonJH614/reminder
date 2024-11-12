@@ -2,11 +2,19 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Reminder</title>
+  <title>Reminder - 기념일 리스트</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
+<div class="container">
   <h1>기념일 리스트</h1>
-  <table>
+
+  <div th:if="${#lists.isEmpty(mails)}">
+    <p>아직 등록된 기념일이 없습니다! 새로운 기념일을 추가해보세요.</p>
+  </div>
+
+  <table th:if="${!#lists.isEmpty(mails)}">
     <tr>
       <th>제목</th>
       <th>이메일</th>
@@ -20,7 +28,7 @@
       <td th:text="${mail.date}"></td>
       <td>
         <form th:action="@{/mail/update/{id} (id = ${mail.id})}" method="get">
-          <button type="submit"> 수정 </button>
+          <button type="submit">수정</button>
         </form>
       </td>
       <td>
@@ -31,6 +39,9 @@
       </td>
     </tr>
   </table>
+
   <button onclick="location.href='/'">홈으로 이동</button>
+  <button onclick="location.href='/mail/create'">기념일 생성</button>
+</div>
 </body>
 </html>
