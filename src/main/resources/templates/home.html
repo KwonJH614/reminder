@@ -7,10 +7,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-<div class="container">
-  <h1>기념일 알림 페이지</h1>
-  <button onclick="location.href='/mail/create'">기념일 생성</button>
-  <button onclick="location.href='/mail/list'">기념일 리스트</button>
+<div class="home in" style="width:100%">
+  <img src=/image/icon.png alt="Reminder Image" class="icon">
+  <div class="container" style="height:200px">
+    <p class="logo">Reminder</p>
+    <div class="btn">
+      <button onclick="document.querySelector('.home').classList.toggle('out'); setTimeout(()=>{location.href='/mail/create'}, 1000)" class="btn1">일정 생성</button>
+      <button onclick="document.querySelector('.home').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)" class="btn1">일정 리스트</button>
+    </div>
+  </div>
 </div>
+<script>
+  setTimeout(()=>{
+  document.querySelector('.home').classList.toggle('in')
+  },1)
+</script>
 </body>
 </html>

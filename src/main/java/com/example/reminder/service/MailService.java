@@ -25,9 +25,6 @@ public class MailService {
 
   public Mail createMail(Mail mail) {
     LocalDate mailDate = mail.getDate();
-    if (mail.getDate().isBefore(LocalDate.now())) {
-      throw new IllegalArgumentException("이미 지난 날짜입니다");
-    }
     return mailRepository.save(mail);
   }
 
@@ -43,10 +40,6 @@ public class MailService {
     Mail mail = mailRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다 : " + id));
 
-    LocalDate mailDate = mailDetail.getDate();
-    if (mailDate.isBefore(LocalDate.now()))
-      throw new IllegalArgumentException("이미 지난 날짜입니다");
-
     mail.setTitle(mailDetail.getTitle());
     mail.setSendTo(mailDetail.getSendTo());
     mail.setDate(mailDetail.getDate());
@@ -58,7 +51,6 @@ public class MailService {
     mailRepository.deleteById(id);
   }
 
-
   public void sendMail(Mail mail) throws MessagingException {
     MimeMessage message = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -69,13 +61,13 @@ public class MailService {
     String htmlContent ="<html>"
             + "<body style='font-family: Arial, sans-serif;'>"
             + "<div style='background-color: #f3f4f6; padding: 20px; border-radius: 5px;'>"
-            + "  <h2 style='color: #4a90e2; text-align: center;'>" + mail.getTitle() + "</h2>"
+            + "  <h2 style='color: #fab6b7; text-align: center;'>" + mail.getTitle() + "</h2>"
             + "  <p style='font-size: 16px; color: #333;'>안녕하세요!</p>"
             + "  <p style='font-size: 14px; color: #555;'>"
             + "    <strong>기념일 날짜:</strong> " + mail.getDate() + "<br>"
             +  mail.getTitle() + " 을(를) 축하합니다! 특별한 날을 기념하세요."
             + "  </p>"
-            + "<p style='font-size: 13px; color: #333; text-align: center;'>기념일 알림 서비스</p>"
+            + "<p style='font-size: 13px; color: #333; text-align: center;'>기념일 알림 서비스 Reminder</p>"
             + "</div>"
             + "</body>"
             + "</html>";

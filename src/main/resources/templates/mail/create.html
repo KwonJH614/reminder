@@ -2,14 +2,14 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Reminder - 새 기념일 생성</title>
+  <title>Reminder - 새 일정 생성</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-<div class="container">
-  <h1>새 기념일 생성</h1>
-  <form th:action="@{/mail/create}" method="post">
+<div class="container in">
+  <h1>새 일정 생성</h1>
+  <form id="mailForm" th:action="@{/mail/create}" method="post">
     <label for="title">제목:</label>
     <input type="text" id="title" name="title" placeholder="생일" required> <br>
 
@@ -17,17 +17,32 @@
     <input type="email" id="sendTo" name="sendTo" placeholder="example@gmail.com" required> <br>
 
     <label for="date">날짜:</label>
-    <input type="date" id="date" name="date" required> <br>
+    <input type="date" id="date" name="date" min="" required> <br>
 
     <div class="button-group">
-      <button type="submit">생성</button>
-      <button type="reset">취소</button>
+      <button type="button" onclick="submitForm()">생성</button>
+      <button type="reset" class="reset">취소</button>
     </div>
   </form>
 
   <br>
-  <button onclick="location.href='/'">홈으로 가기</button>
-  <button onclick="location.href='/mail/list'">리스트 보기</button>
+  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)">리스트 보기</button>
+  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/'}, 1000)" class="homeButton">홈으로 가기</button>
 </div>
+<script>
+  let today = new Date();
+  today.setHours(today.getHours() + 9);
+  today = today.toISOString().split('T')[0];
+  document.getElementById('date').setAttribute('min', today);
+  function submitForm() {
+    document.querySelector('.container').classList.toggle('out');
+    setTimeout(function() {
+      document.getElementById("mailForm").submit();
+    }, 1000);
+  }
+  setTimeout(()=>{
+  document.querySelector('.container').classList.toggle('in')
+  },1)
+</script>
 </body>
 </html>

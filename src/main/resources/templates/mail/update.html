@@ -2,14 +2,14 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Reminder - 기념일 수정</title>
+  <title>Reminder - 일정 수정</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap">
 </head>
 <body>
-<div class="container">
-  <h1>기념일 수정</h1>
-  <form th:action="@{/mail/update/{id}(id=${mail.id})}" method="post">
+<div class="container in">
+  <h1>일정 수정</h1>
+  <form id="updateForm" th:action="@{/mail/update/{id}(id=${mail.id})}" method="post">
     <input type="hidden" name="_method" value="put"/>
 
     <label for="title">제목:</label>
@@ -21,10 +21,25 @@
     <label for="date">날짜:</label>
     <input type="date" id="date" name="date" th:value="${mail.date}" required> <br>
 
-    <button type="submit">수정</button>
+    <button type="button" onclick="submitForm()">수정</button>
   </form>
   <br>
-  <button onclick="location.href='/mail/list'">리스트 보기</button>
+  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)">리스트 보기</button>
 </div>
+<script>
+  let today = new Date();
+  today.setHours(today.getHours() + 9);
+  today = today.toISOString().split('T')[0];
+  document.getElementById('date').setAttribute('min', today);
+  function submitForm() {
+    document.querySelector('.container').classList.toggle('out');
+    setTimeout(function() {
+      document.getElementById("updateForm").submit();
+    }, 1000);
+  }
+  setTimeout(()=>{
+  document.querySelector('.container').classList.toggle('in')
+  },1)
+</script>
 </body>
 </html>
