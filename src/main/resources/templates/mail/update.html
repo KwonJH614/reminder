@@ -15,31 +15,13 @@
     <label for="title">제목:</label>
     <input type="text" id="title" name="title" th:value="${mail.title}" required> <br>
 
-    <label for="sendTo">수신 메일:</label>
-    <input type="email" id="sendTo" name="sendTo" th:value="${mail.sendTo}" required> <br>
-
     <label for="date">날짜:</label>
     <input type="date" id="date" name="date" th:value="${mail.date}" required> <br>
 
-    <button type="button" onclick="submitForm()">수정</button>
+    <button type="submit">수정</button>
   </form>
   <br>
-  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)">리스트 보기</button>
+  <button onclick="location.href='/mail/list'">리스트 보기</button>
 </div>
-<script>
-  let today = new Date();
-  today.setHours(today.getHours() + 9);
-  today = today.toISOString().split('T')[0];
-  document.getElementById('date').setAttribute('min', today);
-  function submitForm() {
-    document.querySelector('.container').classList.toggle('out');
-    setTimeout(function() {
-      document.getElementById("updateForm").submit();
-    }, 1000);
-  }
-  setTimeout(()=>{
-  document.querySelector('.container').classList.toggle('in')
-  },1)
-</script>
 </body>
 </html>

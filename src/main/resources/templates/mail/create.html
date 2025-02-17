@@ -13,36 +13,18 @@
     <label for="title">제목:</label>
     <input type="text" id="title" name="title" placeholder="생일" required> <br>
 
-    <label for="sendTo">수신 메일:</label>
-    <input type="email" id="sendTo" name="sendTo" placeholder="example@gmail.com" required> <br>
-
     <label for="date">날짜:</label>
     <input type="date" id="date" name="date" min="" required> <br>
 
     <div class="button-group">
-      <button type="button" onclick="submitForm()">생성</button>
+      <button type="submit">생성</button>
       <button type="reset" class="reset">취소</button>
     </div>
   </form>
 
   <br>
-  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)">리스트 보기</button>
-  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/'}, 1000)" class="homeButton">홈으로 가기</button>
+  <button onclick="location.href='/mail/list'">리스트 보기</button>
+  <button onclick="location.href='/'">홈으로 가기</button>
 </div>
-<script>
-  let today = new Date();
-  today.setHours(today.getHours() + 9);
-  today = today.toISOString().split('T')[0];
-  document.getElementById('date').setAttribute('min', today);
-  function submitForm() {
-    document.querySelector('.container').classList.toggle('out');
-    setTimeout(function() {
-      document.getElementById("mailForm").submit();
-    }, 1000);
-  }
-  setTimeout(()=>{
-  document.querySelector('.container').classList.toggle('in')
-  },1)
-</script>
 </body>
 </html>

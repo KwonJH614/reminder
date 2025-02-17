@@ -18,48 +18,31 @@
   <table th:if="${!#lists.isEmpty(mails)}">
     <tr>
       <th>제목</th>
-      <th>이메일</th>
       <th>날짜</th>
+      <th>이메일</th>
       <th>수정</th>
       <th>삭제</th>
     </tr>
     <tr th:each="mail : ${mails}">
       <td th:text="${mail.title}"></td>
-      <td th:text="${mail.sendTo}"></td>
       <td th:text="${mail.date}"></td>
+      <td th:text="${mail.sendTo}"></td>
       <td>
         <form th:action="@{/mail/update/{id} (id = ${mail.id})}" method="get">
-          <button type="button" onclick="submitForm(this)">수정</button>
+          <button type="submit"> 수정</button>
         </form>
       </td>
       <td>
         <form th:action="@{/mail/delete/{id}(id=${mail.id})}" method="post">
           <input type="hidden" name="_method" value="delete"/>
-          <button type="button" onclick="if (confirm('이 일정을 삭제하시겠습니까?')) deleteForm(this);">삭제</button>
+          <button type="button" onclick="if (confirm('이 일정을 삭제하시겠습니까?'));">삭제</button>
         </form>
       </td>
     </tr>
   </table>
 
-  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/mail/create'}, 1000)" class="createButton">일정 생성</button>
-  <button onclick="document.querySelector('.container').classList.toggle('out'); setTimeout(()=>{location.href='/'}, 1000)" class="homeButton">홈으로 이동</button>
+  <button onclick="location.href='/mail/create'" class="createButton">일정 생성</button>
+  <button onclick="location.href='/'" class="homeButton">홈으로 이동</button>
 </div>
-<script>
-  function submitForm(button) {
-    document.querySelector('.container').classList.toggle('out');
-    setTimeout(function() {
-      button.closest("form").submit();
-    }, 1000);
-  }
-  function deleteForm(button) {
-    document.querySelector('.container').classList.toggle('out');
-    setTimeout(function() {
-      button.closest("form").submit();
-    }, 1000);
-  }
-  setTimeout(()=>{
-    document.querySelector('.container').classList.toggle('in');
-  }, 1);
-</script>
 </body>
 </html>

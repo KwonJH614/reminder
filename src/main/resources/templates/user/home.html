@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reminder - 내 정보</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container1">
+  <h2>내 정보</h2>
+  <div class="user-info" th:if="${user != null}">
+    <p><strong>이메일:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>가입 날짜:</strong> <span th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd')}"></span></p>
+  </div>
+  <button onclick="location.href='/mail/create'" class="btn1">일정 생성</button>
+  <a href="/user/signout" class="logout-btn">로그아웃</a>
+</div>
+</body>
+</html>

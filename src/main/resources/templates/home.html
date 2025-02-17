@@ -12,15 +12,10 @@
   <div class="container" style="height:200px">
     <p class="logo">Reminder</p>
     <div class="btn">
-      <button onclick="document.querySelector('.home').classList.toggle('out'); setTimeout(()=>{location.href='/mail/create'}, 1000)" class="btn1">일정 생성</button>
-      <button onclick="document.querySelector('.home').classList.toggle('out'); setTimeout(()=>{location.href='/mail/list'}, 1000)" class="btn1">일정 리스트</button>
+      <button onclick="location.href='/user/signup'" class="btn1">회원 가입</button>
+      <button onclick="location.href='/mail/create'" class="btn1">일정 생성</button>
     </div>
   </div>
 </div>
-<script>
-  setTimeout(()=>{
-  document.querySelector('.home').classList.toggle('in')
-  },1)
-</script>
 </body>
 </html>

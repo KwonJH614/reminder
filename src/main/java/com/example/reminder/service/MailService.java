@@ -36,6 +36,10 @@ public class MailService {
     return mailRepository.findById(id);
   }
 
+  public List<Mail> getMailsByUserId(Long userId) {
+    return mailRepository.findByUserId(userId); // 특정 사용자의 메일만 조회
+  }
+
   public Mail updateMail(Long id, Mail mailDetail) {
     Mail mail = mailRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다 : " + id));
@@ -77,7 +81,7 @@ public class MailService {
     mailSender.send(message);
   }
 
-  @Scheduled(cron = "0 * * * * ?")
+  @Scheduled(cron = "0 0 0 * * ?")
   public void scheduleMail() {
     List<Mail> mails = getAllMails();
     LocalDate today = LocalDate.now();

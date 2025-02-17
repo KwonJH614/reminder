@@ -2,7 +2,9 @@ package com.example.reminder.controller;
 
 
 import com.example.reminder.entity.Mail;
+import com.example.reminder.entity.User;
 import com.example.reminder.service.MailService;
+import com.example.reminder.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MailController {
   private MailService mailService;
+  private UserService userService;
 
   @GetMapping
   public String homePage() {
@@ -28,16 +31,25 @@ public class MailController {
   }
 
   @PostMapping("/mail/create")
-  public String createMail(@ModelAttribute Mail mail) {
-    mailService.createMail(mail);
+  public String createMail(@ModelAttribute Mail mail, @SessionAttribute(name = "userId") Long userId) {
+    User user = userService.getLoginUserById(userId);
+    if (user != null) {
+      mail.setUser(user);
+      mail.setSendTo(user.getEmail());
+      mailService.createMail(mail);
+    }
     return "redirect:/mail/list";
   }
 
   @GetMapping("/mail/list")
-  public String getAllMails(Model model) {
-    List<Mail> mails = mailService.getAllMails();
+  public String mailList(Model model, @SessionAttribute(name = "userId", required = false) Long userId) {
+    if (userId == null) {
+      return "redirect:/user/signin"; // 로그인하지 않았다면 로그인 페이지로 리디렉트
+    }
+
+    List<Mail> mails = mailService.getMailsByUserId(userId); // 로그인한 사용자의 메일만 가져오기
     model.addAttribute("mails", mails);
-    return "mail/list";
+    return "/mail/list";
   }
 
   @GetMapping("/mail/update/{id}")
@@ -59,3 +71,4 @@ public class MailController {
     return "redirect:/mail/list";
   }
 }
+
